@@ -51,14 +51,13 @@ module.exports = function generateTable (table, settings) {
     ...[].concat(...table.rows)
   ].reduce((acc, str) => str.length > acc ? str.length : acc, 1)
 
-  settings = {
-    ...settings,
-    padLength: (settings.padding * 2) + longest 
-  }
+  const s = Object.assign({}, settings, {
+    padLength: (settings.padding * 2) + longest
+  })
 
   return [
-    generateHeader(table.header, settings),
-    generateAlignments(table.alignment, settings),
-    generateRows(table.rows, settings)
+    generateHeader(table.header, s),
+    generateAlignments(table.alignment, s),
+    generateRows(table.rows, s)
   ].join('\n')
 }
