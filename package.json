@@ -1,0 +1,37 @@
+{
+  "name": "mdtable",
+  "version": "0.1.0",
+  "description": "Generate markdown tables",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "npm test",
+    "test": "jest --env node",
+    "coverage": "jest --coverage",
+    "report": "npm run coverage && serve coverage/lcov-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jamesford/mdtable.git"
+  },
+  "keywords": [
+    "markdown",
+    "table",
+    "markdowntable",
+    "mdown",
+    "md"
+  ],
+  "author": "Jamesford",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jamesford/mdtable/issues"
+  },
+  "homepage": "https://github.com/Jamesford/mdtable#readme",
+  "dependencies": {
+    "bpad": "^0.1.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "jest": "^22.1.4",
+    "serve": "^6.4.9"
+  }
+}
