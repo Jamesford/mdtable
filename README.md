@@ -1,2 +1,2 @@
 # mdtable
-Generate markdown tables
+(╯°□°）╯︵ ┻━┻ Generate markdown tables
