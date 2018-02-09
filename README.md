@@ -2,6 +2,8 @@
 
 (╯°□°）╯︵ ┻━┻ Generate markdown tables
 
+See it in action, https://mdtables.stobbs.xyz
+
 ## Install
 
 ```bash
