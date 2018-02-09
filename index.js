@@ -52,16 +52,19 @@ module.exports = function generateTable (table, settings) {
     ...table.header,
     ...[].concat(...table.rows)
   ].reduce((acc, str, idx) => {
-    // need a column index,
-    // not an index of the array of everything
+    // need a column index
     const i = idx % columns
 
-    // Mutation :(
-    if (str.length > acc[i]) acc[i] = str.length
-    return acc
+    return str.length > acc[i]
+      ? [ ...acc.slice(0, i),
+          str.length,
+          ...acc.slice(i + 1)
+        ]
+      : acc
   }, new Array(columns).fill(1))
 
   const s = Object.assign({}, settings, {
+    borders: columns < 2 ? true : settings.borders,
     padLength: longest.map(columnLongest => (settings.padding * 2) + columnLongest)
   })
 
