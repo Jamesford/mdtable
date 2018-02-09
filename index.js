@@ -2,7 +2,7 @@ const bpad = require('bpad')
 
 function generateHeader (header, settings) {
   const headerStr = header
-    .map(text => bpad(text, settings.padLength))
+    .map((text, i) => bpad(text, settings.padLength[i]))
     .join('|')
 
   return settings.borders
@@ -12,14 +12,14 @@ function generateHeader (header, settings) {
 
 function generateAlignments (alignment, settings) {
   const alignmentStr = alignment
-    .map(align => {
+    .map((align, i) => {
       switch (align) {
         case 'L':
-          return `:${'-'.repeat(settings.padLength - 1)}`
+          return `:${'-'.repeat(settings.padLength[i] - 1)}`
         case 'C':
-          return `:${'-'.repeat(settings.padLength - 2)}:`
+          return `:${'-'.repeat(settings.padLength[i] - 2)}:`
         case 'R':
-          return `${'-'.repeat(settings.padLength - 1)}:`
+          return `${'-'.repeat(settings.padLength[i] - 1)}:`
       }
     })
     .join('|')
@@ -31,7 +31,7 @@ function generateAlignments (alignment, settings) {
 
 function generateRow (row, settings) {
   const rowStr = row
-    .map(text => bpad(text, settings.padLength))
+    .map((text, i) => bpad(text, settings.padLength[i]))
     .join('|')
 
   return settings.borders
@@ -46,13 +46,26 @@ function generateRows (rows, settings) {
 }
 
 module.exports = function generateTable (table, settings) {
+  const columns = table.header.length
+
   const longest = [
     ...table.header,
     ...[].concat(...table.rows)
-  ].reduce((acc, str) => str.length > acc ? str.length : acc, 1)
+  ].reduce((acc, str, idx) => {
+    // need a column index
+    const i = idx % columns
+
+    return str.length > acc[i]
+      ? [ ...acc.slice(0, i),
+          str.length,
+          ...acc.slice(i + 1)
+        ]
+      : acc
+  }, new Array(columns).fill(1))
 
   const s = Object.assign({}, settings, {
-    padLength: (settings.padding * 2) + longest
+    borders: columns < 2 ? true : settings.borders,
+    padLength: longest.map(columnLongest => (settings.padding * 2) + columnLongest)
   })
 
   return [
