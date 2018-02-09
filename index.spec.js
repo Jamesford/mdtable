@@ -2,10 +2,10 @@ const mdtable = require('./')
 
 test('generates a basic table', () => {
   const table = {
-    header: ['A', 'B', 'C'],
+    header: ['A', 'BB', 'C'],
     alignment: ['L', 'L', 'L'],
     rows: [
-      ['1', '2', '3']
+      ['1', '2', '333']
     ]
   }
 
