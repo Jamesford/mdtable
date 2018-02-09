@@ -15,9 +15,9 @@ test('generates a basic table', () => {
   }
 
   const expected = `
-| A | B | C |
-|:--|:--|:--|
-| 1 | 2 | 3 |
+| A | BB |  C  |
+|:--|:---|:----|
+| 1 | 2  | 333 |
    `
 
   expect(mdtable(table, settings)).toBe(expected.trim())
